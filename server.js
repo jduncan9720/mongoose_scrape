@@ -59,8 +59,8 @@ app.get("/scrape", function(req, res) {
         });
     });
 
-    // Send a message to the client
-    res.send("Scrape Complete");
+    // reload the page after scrape
+    res.redirect("back");
   });
 });
 
