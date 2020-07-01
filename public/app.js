@@ -7,6 +7,10 @@ $.getJSON("/articles", function(data) {
   }
 });
 
+//Scrape for articles when button is clicked
+function scraper() {
+  window.location = '/scrape';
+};
 
 // Whenever someone clicks a p tag
 $(document).on("click", "p", function() {
