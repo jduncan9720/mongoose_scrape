@@ -1,5 +1,6 @@
 body {
-    background-color: #F2F6D0
+    background-color: #5b5c4e;
+    color: aliceblue;
 }
 
 #articles {
@@ -29,4 +30,11 @@ input {
 textarea {
     height: 100px;
     font-size: 18px;
+}
+
+p {
+    margin: 10px;
+}
+a {
+    margin: 10px;
 }
