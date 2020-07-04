@@ -23,6 +23,18 @@ app.use(logger("dev"));
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+var exphbs  = require('express-handlebars');
+ 
+var app = express();
+ 
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+ 
+app.get('/', function (req, res) {
+    res.render('index');
+});
+
 // Make public a static folder
 app.use(express.static("public"));
 
@@ -91,6 +103,7 @@ app.post("/articles/:id", function(req, res) {
   // save the new note that gets posted to the Notes collection
   // then find an article from the req.params.id
   // and update it's "note" property with the _id of the new note
+  console.log(req.body);
   db.Note.create({
     title: req.body.title,
     body: req.body.body

@@ -3,17 +3,18 @@ $.getJSON("/articles", function (data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
-    $("#articles").append("<p data-id='" + data[i]._id + "'><h4>" + data[i].title + "</h4></p><p>" + data[i].summary + "</p><a href=" + data[i].link + "> " + data[i].link + "</a>");
+    $("#articles").append("<h4>" + data[i].title + "</h4><p>" + data[i].summary + "</p><a href=" + data[i].link + "> " + data[i].link + "</a><button data-id='" + data[i]._id + "'>Comment</button>");
   }
 });
-
+ 
 //Scrape for articles when button is clicked
 function scraper() {
   window.location = '/scrape';
 };
 
 // Whenever someone clicks a p tag
-$(document).on("click", "p", function () {
+$(document).on("click", "button", function () {
+  console.log("clicked")
   // Empty the notes from the note section
   $("#notes").empty();
   // Save the id from the p tag
@@ -34,7 +35,7 @@ $(document).on("click", "p", function () {
       // A textarea to add a new note body
       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
-      $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+      $("#notes").append("<button data-id='" + thisId + "' id='savenote'>Save Note</button>");
 
       // If there's a note in the article
       if (data.note) {
@@ -43,14 +44,17 @@ $(document).on("click", "p", function () {
         // Place the body of the note in the body textarea
         $("#bodyinput").val(data.note.body);
       }
-    });
+    }).catch(function (err){
+      console.log(err)
+    }
+    )
 });
 
 // When you click the savenote button
 $(document).on("click", "#savenote", function () {
   // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
-
+  debugger;
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "POST",
